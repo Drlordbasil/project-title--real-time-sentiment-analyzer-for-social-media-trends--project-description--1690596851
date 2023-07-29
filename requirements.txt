@@ -1,0 +1,15 @@
+The required package requirements for this Python program are:
+
+- tweepy
+- nltk
+- matplotlib
+- csv
+- fpdf
+
+You can install these packages using pip by running the following command:
+
+```
+pip install tweepy nltk matplotlib fpdf
+```
+
+Make sure you have pip installed and run this command in your command line or terminal.
