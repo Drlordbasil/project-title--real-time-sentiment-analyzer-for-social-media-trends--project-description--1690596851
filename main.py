@@ -11,7 +11,8 @@ class RealTimeSentimentAnalyzer:
         self.consumer_secret = consumer_secret
         self.access_token = access_token
         self.access_token_secret = access_token_secret
-        self.auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)
+        self.auth = tweepy.OAuthHandler(
+            self.consumer_key, self.consumer_secret)
         self.auth.set_access_token(self.access_token, self.access_token_secret)
         self.api = tweepy.API(self.auth)
         self.sia = SentimentIntensityAnalyzer()
@@ -27,7 +28,8 @@ class RealTimeSentimentAnalyzer:
     def analyze_sentiment(self):
         sentiment_scores = []
         for tweet in self.tweets:
-            sentiment_scores.append(self.sia.polarity_scores(tweet.text)['compound'])
+            sentiment_scores.append(
+                self.sia.polarity_scores(tweet.text)['compound'])
         return sentiment_scores
 
     def generate_sentiment_visualization(self, sentiment_scores):
@@ -65,7 +67,8 @@ class RealTimeSentimentAnalyzer:
 
         for tweet, score in zip(self.tweets, sentiment_scores):
             pdf.ln(5)
-            pdf.multi_cell(0, 10, txt=f"{tweet.text}\nSentiment Score: {score}")
+            pdf.multi_cell(
+                0, 10, txt=f"{tweet.text}\nSentiment Score: {score}")
 
         pdf.output("sentiment_analysis.pdf")
 
@@ -84,7 +87,8 @@ if __name__ == "__main__":
     access_token = 'your_access_token'
     access_token_secret = 'your_access_token_secret'
 
-    analyzer = RealTimeSentimentAnalyzer(consumer_key, consumer_secret, access_token, access_token_secret)
+    analyzer = RealTimeSentimentAnalyzer(
+        consumer_key, consumer_secret, access_token, access_token_secret)
     duration = int(input("Enter the data retrieval duration (in minutes): "))
     filters = input("Enter the user-defined filters: ")
     analyzer.run(duration, filters)
