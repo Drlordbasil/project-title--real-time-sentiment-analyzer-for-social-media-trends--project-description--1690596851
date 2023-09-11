@@ -26,10 +26,8 @@ class RealTimeSentimentAnalyzer:
             tweet_count += len(new_tweets)
 
     def analyze_sentiment(self):
-        sentiment_scores = []
-        for tweet in self.tweets:
-            sentiment_scores.append(
-                self.sia.polarity_scores(tweet.text)['compound'])
+        sentiment_scores = [self.sia.polarity_scores(
+            tweet.text)['compound'] for tweet in self.tweets]
         return sentiment_scores
 
     def generate_sentiment_visualization(self, sentiment_scores):
@@ -55,8 +53,8 @@ class RealTimeSentimentAnalyzer:
         with open('sentiment_data.csv', 'w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(['Tweet', 'Sentiment Score'])
-            for tweet, score in zip(self.tweets, sentiment_scores):
-                writer.writerow([tweet.text, score])
+            writer.writerows([[tweet.text, score]
+                             for tweet, score in zip(self.tweets, sentiment_scores)])
 
     def export_data_pdf(self, sentiment_scores, report):
         pdf = FPDF()
